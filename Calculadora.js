@@ -1,26 +1,38 @@
 
-// Calculadora de operaciones en JavaScript
-const PI = 3.1416;
-let valor1 = 5;
-let valor2 = 3;
 
-// Operaciones
-let resultadoSuma = valor1 + valor2;                // suma
-let resultadoResta = valor1 - valor2;               // resta
-let resultadoMultiplicacion = valor1 * valor2;      // multiplicación
-let resultadoDivision = valor1 / valor2;            // división
-// Potencia: (valor1^valor2)
-let resultadoPotencia = Math.pow(valor1, valor2);
-// Módulo
-let resultadoModulo = valor1 % valor2;
+// Calculadora visual conectada al HTML
+function getValues() {
+	const v1 = parseFloat(document.getElementById('v1').value) || 0;
+	const v2 = parseFloat(document.getElementById('v2').value) || 0;
+	return {v1, v2};
+}
 
-// Mostrar resultados en consola
-console.log("PI = " + PI);
-console.log(`Valor 1 = ${valor1}, Valor 2 = ${valor2}`);
-console.log("El resultado de la suma es: " + resultadoSuma);
-console.log("El resultado de la resta es: " + resultadoResta);
-console.log("El resultado de la multiplicación es: " + resultadoMultiplicacion);
-console.log("El resultado de la división es: " + resultadoDivision);
-console.log("El resultado de la potencia (v1^v2) es: " + resultadoPotencia);
-console.log("El resultado del módulo (v1%v2) es: " + resultadoModulo);
+function pretty(x) {
+	if (!isFinite(x)) return String(x);
+	return Math.round((x + Number.EPSILON) * 1e12) / 1e12;
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+	const display = document.getElementById('display');
+
+	document.getElementById('btnSum').addEventListener('click', () => {
+		const {v1, v2} = getValues();
+		display.textContent = pretty(v1 + v2);
+	});
+
+	document.getElementById('btnSub').addEventListener('click', () => {
+		const {v1, v2} = getValues();
+		display.textContent = pretty(v1 - v2);
+	});
+
+	document.getElementById('btnMul').addEventListener('click', () => {
+		const {v1, v2} = getValues();
+		display.textContent = pretty(v1 * v2);
+	});
+
+	document.getElementById('btnDiv').addEventListener('click', () => {
+		const {v1, v2} = getValues();
+		display.textContent = pretty(v1 / v2);
+	});
+});
 
